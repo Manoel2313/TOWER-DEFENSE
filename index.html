@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>TOWER DEFENSE 1970 v23</title>
+<title>TOWER DEFENSE 1970 v24</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
@@ -59,25 +59,33 @@
   .info-line strong { color: #ffd700; }
   .info-line.full strong { color: #33ff33; }
 
-  /* BOTÃO λ ADM */
+  /* BOTÃO λ ADM - FIX: mais visível */
   #admBtn {
     position: fixed; top: 10px; left: 10px;
-    background: #000; border: 2px solid #33ff33;
-    color: #33ff33; font-size: 28px; font-family: 'VT323', monospace;
-    cursor: pointer; padding: 5px 14px; z-index: 500;
-    box-shadow: 0 0 10px #33ff33;
+    background: #000; border: 3px solid #33ff33;
+    color: #33ff33; font-size: 32px; font-weight: bold;
+    font-family: 'VT323', monospace;
+    cursor: pointer; padding: 6px 18px; z-index: 999999;
+    box-shadow: 0 0 20px #33ff33, 0 0 40px #33ff33;
+    text-shadow: 0 0 10px #33ff33;
     transition: all 0.2s;
     user-select: none;
     display: none;
+    animation: admPulse 1.5s ease-in-out infinite;
+  }
+  @keyframes admPulse {
+    0%, 100% { box-shadow: 0 0 20px #33ff33, 0 0 40px #33ff33; }
+    50% { box-shadow: 0 0 30px #33ff33, 0 0 60px #33ff33, 0 0 90px #33ff33; }
   }
   #admBtn:hover {
     background: #33ff33; color: #000;
-    box-shadow: 0 0 25px #33ff33;
+    box-shadow: 0 0 40px #33ff33, 0 0 80px #33ff33;
     transform: scale(1.1);
   }
   #admBtn.logged {
     border-color: #ffd700; color: #ffd700;
-    box-shadow: 0 0 15px #ffd700;
+    box-shadow: 0 0 25px #ffd700, 0 0 50px #ffd700;
+    text-shadow: 0 0 10px #ffd700;
   }
   #admBtn.logged:hover { background: #ffd700; color: #000; }
 
@@ -91,6 +99,7 @@
   .deck-card.selected::after { content: "✓"; position: absolute; top: 4px; right: 8px;
     color: #ffd700; font-size: 22px; }
   .deck-card.cruzado { border-color: #ffd700; box-shadow: 0 0 12px #ffd700; }
+  .deck-card.quimico { border-color: #88dd44; box-shadow: 0 0 10px #88dd44; }
   .deck-card .card-name { font-size: 16px; font-weight: bold; margin-bottom: 3px; }
   .deck-card .card-cost { font-size: 13px; color: #ffd700; margin-bottom: 4px; }
   .deck-card .card-stat { font-size: 11px; color: #22aa22; }
@@ -150,7 +159,6 @@
     font-family: 'VT323', monospace; font-size: 14px; padding: 8px; resize: vertical; }
   .custom-map-box .box-actions { display: flex; gap: 10px; margin-top: 8px; }
 
-  /* MODAIS */
   #secretModal, #customMapModal {
     position: fixed; inset: 0; background: rgba(0,0,0,0.9);
     display: none; justify-content: center; align-items: center;
@@ -170,7 +178,6 @@
     font-size: 16px; padding: 8px; cursor: pointer; letter-spacing: 2px; }
   .secret-box .secret-actions button:hover { background: #ffd700; color: #000; }
 
-  /* PAINEL ADM NOVO */
   #adminPanel {
     position: fixed; inset: 0; background: rgba(0,0,0,0.95);
     display: none; justify-content: center; align-items: center;
@@ -255,7 +262,6 @@
   .admin-btn.cyan { border-color: #66ddff; color: #66ddff; }
   .admin-btn.cyan:hover { background: #66ddff; color: #000; }
 
-  /* EDITOR */
   #editorScreen { position: fixed; inset: 0; background: #000;
     display: none; flex-direction: column; z-index: 20000;
     padding: 10px; overflow-y: auto; }
@@ -279,7 +285,6 @@
   .editor-info { color: #88ff88; font-size: 14px; text-align: center;
     padding: 6px; border: 1px dashed #66ddff; }
 
-  /* HUD do jogo */
   #hudBtns {
     position: fixed; top: 8px; left: 50%; transform: translateX(-50%);
     display: flex; gap: 8px; z-index: 500;
@@ -340,6 +345,9 @@
     box-shadow: 0 0 8px #ffd700; }
   .tower-btn.cruzado:hover { background: #ffd700; color: #000; }
   .tower-btn.lord:hover { background: #ffd700; color: #000; }
+  .tower-btn.quimico { border-color: #88dd44; color: #88dd44;
+    box-shadow: 0 0 8px #88dd44; }
+  .tower-btn.quimico:hover { background: #88dd44; color: #000; }
   @keyframes blink {
     0%, 50% { background: #33ff33; }
     51%, 100% { background: #003300; color: #33ff33; }
@@ -423,7 +431,6 @@
   }
   #victoryScreen .unlock-box .cross { font-size: 48px; display: block; margin-bottom: 8px; }
 
-  /* MODO MOBILE */
   body.mode-mobile { flex-direction: column; justify-content: flex-start;
     align-items: center; padding: 4px; gap: 4px; }
   body.mode-mobile #game { flex-direction: column; gap: 6px; width: 100%; align-items: center; }
@@ -441,7 +448,7 @@
   }
   body.mode-mobile #hudBtns { top: 26px; }
   body.mode-mobile .hud-btn { font-size: 12px; padding: 3px 8px; }
-  body.mode-mobile #admBtn { font-size: 22px; padding: 4px 10px; top: 4px; left: 4px; }
+  body.mode-mobile #admBtn { font-size: 24px; padding: 4px 12px; top: 4px; left: 4px; }
 </style>
 </head>
 <body>
@@ -626,7 +633,7 @@
 </div>
 
 <!-- GAME -->
-<div class="title" id="titleBar" style="display:none;">◄ TOWER DEFENSE · v23 ►</div>
+<div class="title" id="titleBar" style="display:none;">◄ TOWER DEFENSE · v24 ►</div>
 <div class="map-info" id="mapInfoBar" style="display:none;">
   MAPA: <span class="map-name" id="mapName">---</span><br>
   30m × 30m · 1m = 16px<br>
@@ -724,6 +731,8 @@ const Sound = (() => {
     shootGlacial() { tone(1400, 0.06, 'sine', 0.15, 1800); },
     shootLanca() { noise(0.1, 0.12, 800); },
     shootDrone() { tone(1600, 0.04, 'sine', 0.12, 2000); },
+    shootQuimico() { noise(0.3, 0.15, 400); tone(200, 0.4, 'sine', 0.15, 100); },
+    quimicoDeath() { noise(0.8, 0.3, 300); tone(80, 0.8, 'sine', 0.25, 40); },
     shootLord() { tone(120, 0.4, 'sawtooth', 0.3, 800); setTimeout(() => tone(800, 0.3, 'sawtooth', 0.25, 100), 100); },
     shootCruzado() { tone(900, 0.1, 'sine', 0.2, 1200); },
     cruzadoTornado() { tone(300, 0.5, 'sawtooth', 0.3, 800); noise(0.5, 0.25, 1000); },
@@ -794,6 +803,8 @@ const ORANGE = '#ffaa33';
 const GOLD = '#ffd700';
 const TOXIC = '#66ff33';
 const POISON = '#88dd44';
+const GAS = '#aaff55';
+const GAS_DARK = '#2a5a1a';
 const PURPLE = '#aa66ff';
 const SHIELD = '#66ddff';
 const TESLA = '#ffff66';
@@ -816,6 +827,8 @@ const LORD_GOLD = '#ffd700';
 const LORD_PURPLE = '#aa66ff';
 const CRUZADO_COL = '#ffd700';
 const CRUZADO_LIGHT = '#ffffcc';
+const QUIMICO_COL = '#88dd44';
+const QUIMICO_DARK = '#2a5a1a';
 
 // ============ MAPAS ============
 const OFFICIAL_MAPS = [
@@ -871,11 +884,11 @@ const STAR_PROGRESSION = {
     { hp: 220, damage: 30, range: 5 * PPM, fireRate: 6, fireDmg: 22, fireDur: 360 },
     { hp: 350, damage: 45, range: 5.5 * PPM, fireRate: 6, fireDmg: 35, fireDur: 420 }
   ],
-  glacial: [
-    { hp: 100, damage: 15, range: 5 * PPM, fireRate: 36, iceDur: 90 },
-    { hp: 150, damage: 25, range: 6 * PPM, fireRate: 33, iceDur: 120 },
-    { hp: 220, damage: 40, range: 7 * PPM, fireRate: 30, iceDur: 150 },
-    { hp: 350, damage: 65, range: 8 * PPM, fireRate: 27, iceDur: 210 }
+  quimico: [
+    { hp: 100, damage: 15, range: 6 * PPM, fireRate: 480, isQuimico: true, gasDuration: 300, poisonDmg: 2, poisonDur: 900 },
+    { hp: 150, damage: 20, range: 6.5 * PPM, fireRate: 450, isQuimico: true, gasDuration: 330, poisonDmg: 3, poisonDur: 900 },
+    { hp: 220, damage: 28, range: 7 * PPM, fireRate: 420, isQuimico: true, gasDuration: 360, poisonDmg: 4, poisonDur: 900 },
+    { hp: 350, damage: 40, range: 7.5 * PPM, fireRate: 390, isQuimico: true, gasDuration: 420, poisonDmg: 6, poisonDur: 900 }
   ],
   bazuca: [
     { hp: 100, damage: 150, range: 10 * PPM, fireRate: 300, splash: 3 * PPM },
@@ -931,6 +944,7 @@ const TOWER_TYPES = {
   lancachamas:  { cost: 180, name: 'LANÇA-CHAMAS',  desc: 'HP/100 · DMG/15 · 0.1s · 4m · FOGO', isFlamethrower: true, hitsAir: false },
   glacial:      { cost: 200, name: 'GLACIAL',       desc: 'HP/100 · DMG/15 · 0.6s · 5m · CONGELA', isGlacial: true, hitsAir: false },
   bazuca:       { cost: 200, name: 'BAZUCA',        desc: 'HP/100 · DMG/150 · 5s · 10m · ÁREA', splash: 3 * PPM, hitsAir: true },
+  quimico:      { cost: 230, name: 'QUÍMICO',       desc: 'HP/100 · GÁS 5s · VENENO 15s', isQuimico: true, hitsAir: false },
   tesla:        { cost: 230, name: 'TESLA',         desc: 'HP/80 · DMG/30 · 2s · 6m · RICOCHETE', isTesla: true, hitsAir: false },
   medico:       { cost: 250, name: 'MÉDICO',        desc: 'HP/100 · CURA/20 · 5s · 5m', heal: 20, isHealer: true, hitsAir: false },
   defensor:     { cost: 270, name: 'DEFENSOR',      desc: 'HP/200 · AURA -50% DANO · 5m', isDefensor: true, hitsAir: false },
@@ -940,7 +954,7 @@ const TOWER_TYPES = {
   cruzado:      { cost: 100, name: '✝️ CRUZADO ✝️', desc: 'HP/500 · DMG/100 · 1s · 15m · LENDÁRIO', isCruzado: true, hitsAir: true, sacredRange: 8 * PPM }
 };
 
-const TOWER_ORDER = ['recruta','boxeador','drone','faca','sniper','metralhadora','lancachamas','glacial','bazuca','tesla','medico','defensor','comerciante','paradoxo'];
+const TOWER_ORDER = ['recruta','boxeador','drone','faca','sniper','metralhadora','lancachamas','quimico','glacial','bazuca','tesla','medico','defensor','comerciante','paradoxo'];
 
 // ============ PERSISTÊNCIA ============
 function loadCrystals() { try { return parseInt(localStorage.getItem('td_crystals')) || 0; } catch(e) { return 0; } }
@@ -970,7 +984,7 @@ let cruzadoUnlocked = loadCruzadoUnlocked();
 let customMaps = loadCustomMaps();
 let admSkipEnabled = loadToggleSkip();
 let admFastEnabled = loadToggleFast();
-let admLoggedIn = false; // Sessão atual (reseta ao recarregar)
+let admLoggedIn = false;
 
 // ============ STATE ============
 const DECK_SIZE = 8;
@@ -999,6 +1013,10 @@ let waveTransitionTimer = 0;
 let curseWavesLeft = 0;
 let curseActive = false;
 let crystalsEarnedThisRun = 0;
+let fastModeActive = false;
+
+// Atalho secreto Z Z Z
+let zPressTimestamps = [];
 
 const towers = [];
 const enemies = [];
@@ -1035,6 +1053,9 @@ const azazelShockwaves = [];
 const cruzadoTornados = [];
 const cruzadoSacreds = [];
 const cruzadoBeams = [];
+// v24 Químico
+const gasCones = [];        // cone de gás ativo (visual + dano)
+const quimicoZones = [];    // zona ao morrer
 
 function getTowerStats(type) {
   const level = (type === 'lord' || type === 'cruzado') ? 0 : (stars[type] || 0);
@@ -1058,7 +1079,10 @@ function getTowerStats(type) {
     bossDamage: prog.bossDamage || 0,
     bossFireRate: prog.bossFireRate || 0,
     sacredRange: prog.sacredRange || 0,
-    tornadoDamage: prog.tornadoDamage || 0
+    tornadoDamage: prog.tornadoDamage || 0,
+    gasDuration: prog.gasDuration || 300,
+    poisonDmg: prog.poisonDmg || 2,
+    poisonDur: prog.poisonDur || 900
   };
 }
 function getMerchantCost() { return 400 + towers.filter(t => t.isMerchant).length * 100; }
@@ -1171,6 +1195,20 @@ function addTeslaBolt(points) { teslaBolts.push({ points, life: 12, maxLife: 12 
 function addAirTrail(x, y) { airTrails.push({ x, y, life: 20, maxLife: 20, vx: (Math.random() - 0.5) * 0.3, vy: 0.3 + Math.random() * 0.5 }); }
 function addLordAura(x, y, range) { lordAuras.push({ x, y, range, life: 8, maxLife: 8 }); }
 function addCruzadoBeam(x1, y1, x2, y2, color) { cruzadoBeams.push({ x1, y1, x2, y2, life: 12, maxLife: 12, color: color || CRUZADO_COL }); }
+function addGasCone(x, y, angle, range, damage, gasDuration, poisonDmg, poisonDur) {
+  gasCones.push({
+    x, y, angle, range,
+    damage, gasDuration, poisonDmg, poisonDur,
+    life: gasDuration, maxLife: gasDuration,
+    tickTimer: 0
+  });
+}
+function addQuimicoZone(x, y) {
+  quimicoZones.push({
+    x, y, radius: 10 * PPM, life: 5 * 60, maxLife: 5 * 60,
+    tickTimer: 0
+  });
+}
 
 function damagePlayer(amount) {
   if (amount >= 9999) { playerHp = 0; }
@@ -1275,6 +1313,7 @@ function tryPlace(x, y, type) {
     heal: stats.heal, isHealer: def.isHealer || false,
     income: stats.income, isMerchant: def.isMerchant || false,
     isFlamethrower: def.isFlamethrower || false,
+    isQuimico: def.isQuimico || false,
     isGlacial: def.isGlacial || false,
     isTesla: def.isTesla || false,
     isDefensor: def.isDefensor || false,
@@ -1290,6 +1329,7 @@ function tryPlace(x, y, type) {
     reduction: stats.reduction, healPerSec: stats.healPerSec,
     bossDamage: stats.bossDamage, bossFireRate: stats.bossFireRate,
     sacredRange: stats.sacredRange, tornadoDamage: stats.tornadoDamage,
+    gasDuration: stats.gasDuration, poisonDmg: stats.poisonDmg, poisonDur: stats.poisonDur,
     hp: stats.hp, maxHp: stats.hp,
     cooldown: 0, angle: 0,
     spawnAnim: 20, recoil: 0, healPulse: 0, incomePulse: 0,
@@ -1299,7 +1339,7 @@ function tryPlace(x, y, type) {
     cruzadoIsBossMode: false
   });
   gold -= actualCost;
-  const col = def.isCruzado ? CRUZADO_COL : def.isLord ? LORD_GOLD : def.isHealer ? GREEN_BRIGHT : def.isMerchant ? GOLD : def.isGlacial ? ICE : def.isTesla ? TESLA : def.isDefensor ? SHIELD : def.isParadox ? PURPLE : def.isFlamethrower ? FIRE : def.isBoxer ? BOXER : def.isDrone ? DRONE : GREEN;
+  const col = def.isQuimico ? QUIMICO_COL : def.isCruzado ? CRUZADO_COL : def.isLord ? LORD_GOLD : def.isHealer ? GREEN_BRIGHT : def.isMerchant ? GOLD : def.isGlacial ? ICE : def.isTesla ? TESLA : def.isDefensor ? SHIELD : def.isParadox ? PURPLE : def.isFlamethrower ? FIRE : def.isBoxer ? BOXER : def.isDrone ? DRONE : GREEN;
   addShockwave(x, y, col, 40, 22);
   burst(x, y, 16, { speed: 3, life: 25, color: col, size: 2 });
   addFlash(0.15);
@@ -1368,7 +1408,7 @@ document.addEventListener('keydown', e => {
   }
   // Tecla P - Painel ADM
   if (e.key === 'p' || e.key === 'P') {
-    if (!admLoggedIn) return; // Só funciona se estiver logado
+    if (!admLoggedIn) return;
     e.preventDefault();
     toggleAdminPanel();
   }
@@ -1381,6 +1421,25 @@ document.addEventListener('keydown', e => {
   if ((e.key === 'l' || e.key === 'L') && admLoggedIn && admFastEnabled) {
     e.preventDefault();
     toggleFastMode();
+  }
+  // ATALHO SECRETO: Z Z Z em menos de 2 segundos
+  if (e.key === 'z' || e.key === 'Z') {
+    const now = Date.now();
+    zPressTimestamps = zPressTimestamps.filter(t => now - t < 2000);
+    zPressTimestamps.push(now);
+    if (zPressTimestamps.length >= 3) {
+      zPressTimestamps = [];
+      e.preventDefault();
+      if (admLoggedIn) {
+        openAdminPanel();
+      } else {
+        document.getElementById('secretModal').classList.add('active');
+        document.getElementById('secretInput').value = '';
+        setTimeout(() => document.getElementById('secretInput').focus(), 100);
+      }
+      Sound.secret();
+      showMsg('> 🔓 ATALHO SECRETO ATIVADO');
+    }
   }
 });
 
@@ -1423,6 +1482,8 @@ function spawnEnemy(typeKey, x, y, wp, overrideHp, overrideDmg) {
     isAir: t.isAir || false, airHeight: t.airHeight || 0,
     airBob: Math.random() * Math.PI * 2, airPropTimer: 0,
     fireTimer: 0, fireTickTimer: 0,
+    poisonTimer: 0, poisonTickTimer: 0, poisonDmgPerTick: 0,
+    slowFromGas: false,
     spawnAnim: t.isBoss ? 40 : 15, hitFlash: 0, lastTrailTime: 0, lastHealTick: 0,
     isBoss: t.isBoss || false,
     bossName: t.bossName || '',
@@ -1560,6 +1621,7 @@ function startWave() {
   azazelShockwaves.length = 0;
   cruzadoTornados.length = 0;
   cruzadoBeams.length = 0;
+  gasCones.length = 0;
 
   if (isBossWave(waveNum)) {
     const bossType = getBossType(waveNum);
@@ -1593,7 +1655,6 @@ function skipCurrentWave() {
     showMsg('> [M] SÓ DURANTE O JOGO');
     return;
   }
-  // Mata todos inimigos sem recompensa
   const totalKilled = enemies.length + bats.length;
   for (const e of enemies) {
     burst(e.x, e.y - (e.airHeight || 0), 15, { speed: 6, life: 30, size: 3, color: GOLD });
@@ -1604,7 +1665,6 @@ function skipCurrentWave() {
   }
   enemies.length = 0;
   bats.length = 0;
-  // Limpa projéteis e zonas
   webProjectiles.length = 0;
   poisonClouds.length = 0;
   barrils.length = 0;
@@ -1613,6 +1673,7 @@ function skipCurrentWave() {
   omegaMissiles.length = 0;
   omegaBeams.length = 0;
   pentagrams.length = 0;
+  gasCones.length = 0;
   bossActive = false;
   bossRef = null;
   waveQueue = [];
@@ -1622,7 +1683,6 @@ function skipCurrentWave() {
   addFlash(0.6, '255,215,0'); addShake(12);
   Sound.bigExplosion();
   showMsg('> [ADM] WAVE PULADA! (' + totalKilled + ' mortos)');
-  // Se for onda 100, dispara vitória
   if (waveNum >= 100) {
     setTimeout(() => {
       victory = true;
@@ -1633,7 +1693,6 @@ function skipCurrentWave() {
   }
 }
 
-let fastModeActive = false;
 function toggleFastMode() {
   if (!gameMode || gameOver || victory) {
     showMsg('> [L] SÓ DURANTE O JOGO');
@@ -1662,9 +1721,20 @@ function areaExplosion(x, y, damage, radius) {
       if (idx >= 0) towers.splice(idx, 1);
       if (t.isHealer) healPlayer(5);
       if (t.isCruzado) cruzadoDeath(t.x, t.y);
+      if (t.isQuimico) quimicoDeathZone(t.x, t.y);
     }
   }
   updateGameUI();
+}
+
+function quimicoDeathZone(x, y) {
+  addQuimicoZone(x, y);
+  addShockwave(x, y, QUIMICO_COL, 10 * PPM, 60);
+  burst(x, y, 60, { speed: 8, life: 50, size: 4, gravity: 0.1, friction: 0.92, color: QUIMICO_COL });
+  addFlash(0.6, '136,221,68');
+  addShake(10);
+  Sound.quimicoDeath();
+  showMsg('> QUÍMICO DEIXOU ÁREA TÓXICA!');
 }
 
 function cruzadoDeath(x, y) {
@@ -1735,6 +1805,24 @@ function damageEnemy(e, amount, fromX, fromY, isFire, ignoreArmor) {
   }
 }
 
+function applyFire(e, fireDmg, fireDur) {
+  if (e.isAir) return;
+  if (e.isBoss && e.fireTimer > 0) return;
+  e.fireTimer = fireDur || 300; e.fireTickTimer = 0; e.fireDmg = fireDmg || 10;
+}
+function applyIce(e, iceDur) {
+  if (e.isAir) return;
+  if (e.isBoss || e.type === 'yeti') return;
+  if (e.type === 'blindado') { e.iceFrozen = Math.floor((iceDur || 90) * 0.5); return; }
+  e.iceFrozen = iceDur || 90;
+}
+function applyPoison(e, poisonDmg, poisonDur) {
+  if (e.isBoss) return;
+  e.poisonTimer = poisonDur;
+  e.poisonTickTimer = 0;
+  e.poisonDmgPerTick = poisonDmg;
+}
+
 function ogroPound(x, y) {
   const radius = 5 * PPM;
   addShockwave(x, y, OGRE_COL, radius, 30);
@@ -1752,6 +1840,7 @@ function ogroPound(x, y) {
       if (idx >= 0) towers.splice(idx, 1);
       if (t.isHealer) healPlayer(5);
       if (t.isCruzado) cruzadoDeath(t.x, t.y);
+      if (t.isQuimico) quimicoDeathZone(t.x, t.y);
     }
   }
   updateGameUI();
@@ -1774,21 +1863,10 @@ function barrilExplode(x, y) {
       if (idx >= 0) towers.splice(idx, 1);
       if (t.isHealer) healPlayer(5);
       if (t.isCruzado) cruzadoDeath(t.x, t.y);
+      if (t.isQuimico) quimicoDeathZone(t.x, t.y);
     }
   }
   updateGameUI();
-}
-
-function applyFire(e, fireDmg, fireDur) {
-  if (e.isAir) return;
-  if (e.isBoss && e.fireTimer > 0) return;
-  e.fireTimer = fireDur || 300; e.fireTickTimer = 0; e.fireDmg = fireDmg || 10;
-}
-function applyIce(e, iceDur) {
-  if (e.isAir) return;
-  if (e.isBoss || e.type === 'yeti') return;
-  if (e.type === 'blindado') { e.iceFrozen = Math.floor((iceDur || 90) * 0.5); return; }
-  e.iceFrozen = iceDur || 90;
 }
 
 function spawnOmegaBeams(boss) {
@@ -1818,6 +1896,7 @@ function omegaDeathExplosion(x, y) {
       const idx = towers.indexOf(t);
       if (idx >= 0) towers.splice(idx, 1);
       if (t.isCruzado) cruzadoDeath(t.x, t.y);
+      if (t.isQuimico) quimicoDeathZone(t.x, t.y);
     }
   }
   updateGameUI();
@@ -1848,6 +1927,7 @@ function colossusPound(x, y) {
       if (idx >= 0) towers.splice(idx, 1);
       if (t.isHealer) healPlayer(5);
       if (t.isCruzado) cruzadoDeath(t.x, t.y);
+      if (t.isQuimico) quimicoDeathZone(t.x, t.y);
     }
   }
   updateGameUI();
@@ -1869,6 +1949,7 @@ function colossusDeathExplosion(x, y) {
       if (idx >= 0) towers.splice(idx, 1);
       if (t.isHealer) healPlayer(5);
       if (t.isCruzado) cruzadoDeath(t.x, t.y);
+      if (t.isQuimico) quimicoDeathZone(t.x, t.y);
     }
   }
   for (let i = 0; i < 6; i++) {
@@ -1901,6 +1982,7 @@ function azazelShockwave(x, y) {
       if (idx >= 0) towers.splice(idx, 1);
       if (t.isHealer) healPlayer(5);
       if (t.isCruzado) cruzadoDeath(t.x, t.y);
+      if (t.isQuimico) quimicoDeathZone(t.x, t.y);
     }
   }
   updateGameUI();
@@ -1930,6 +2012,7 @@ function azazelThunder(boss) {
       if (idx >= 0) towers.splice(idx, 1);
       if (t.isHealer) healPlayer(5);
       if (t.isCruzado) cruzadoDeath(t.x, t.y);
+      if (t.isQuimico) quimicoDeathZone(t.x, t.y);
     }
   }
   updateGameUI();
@@ -1958,6 +2041,7 @@ function azazelBeamStorm(boss) {
           if (idx >= 0) towers.splice(idx, 1);
           if (t.isHealer) healPlayer(5);
           if (t.isCruzado) cruzadoDeath(t.x, t.y);
+          if (t.isQuimico) quimicoDeathZone(t.x, t.y);
         }
       }
       updateGameUI();
@@ -2016,7 +2100,6 @@ function loop(time) {
   const rawDt = Math.min((time - lastTime) / 16.67, 3);
   lastTime = time;
   if (paused || gameOver || victory) { draw(); return; }
-  // Modo rápido: multiplica dt por 10
   const dt = fastModeActive ? rawDt * 10 : rawDt;
 
   if (waveActive && waveQueue.length > 0) {
@@ -2118,6 +2201,7 @@ function loop(time) {
             const idx = towers.indexOf(t);
             if (idx >= 0) towers.splice(idx, 1);
             if (t.isCruzado) cruzadoDeath(t.x, t.y);
+            if (t.isQuimico) quimicoDeathZone(t.x, t.y);
           }
         }
       }
@@ -2159,6 +2243,7 @@ function loop(time) {
               const idx = towers.indexOf(t);
               if (idx >= 0) towers.splice(idx, 1);
               if (t.isCruzado) cruzadoDeath(t.x, t.y);
+              if (t.isQuimico) quimicoDeathZone(t.x, t.y);
             }
           }
         }
@@ -2230,6 +2315,7 @@ function loop(time) {
               const idx = towers.indexOf(t);
               if (idx >= 0) towers.splice(idx, 1);
               if (t.isCruzado) cruzadoDeath(t.x, t.y);
+              if (t.isQuimico) quimicoDeathZone(t.x, t.y);
             }
           }
           const heal = Math.min(totalDrained * 2.5, 800);
@@ -2255,8 +2341,25 @@ function loop(time) {
       }
     }
 
+    // GAS CONE: verifica se inimigo está dentro de algum cone de gás
+    e.slowFromGas = false;
+    for (const gc of gasCones) {
+      const dx = e.x - gc.x, dy = e.y - gc.y;
+      const dist = Math.hypot(dx, dy);
+      if (dist > gc.range) continue;
+      const angle = Math.atan2(dy, dx);
+      let diff = angle - gc.angle;
+      while (diff > Math.PI) diff -= Math.PI * 2;
+      while (diff < -Math.PI) diff += Math.PI * 2;
+      if (Math.abs(diff) < Math.PI / 4) {
+        e.slowFromGas = true;
+        break;
+      }
+    }
+
     let speedMult = 1;
-    if (e.azazelSlowed) speedMult = 0.5;
+    if (e.azazelSlowed) speedMult *= 0.5;
+    if (e.slowFromGas && !e.isBoss) speedMult *= 0.8;
 
     if (!frozenByParadox) {
       const target = path[e.wp];
@@ -2281,6 +2384,23 @@ function loop(time) {
       else { e.x += (dx/dist) * moveSpeed * dt; e.y += (dy/dist) * moveSpeed * dt; }
     }
     e.azazelSlowed = false;
+
+    // Poison timer (veneno do químico)
+    if (e.poisonTimer > 0) {
+      e.poisonTimer -= dt;
+      e.poisonTickTimer += dt;
+      if (Math.random() < 0.3) {
+        addParticle(e.x + (Math.random() - 0.5) * e.size, e.y + (Math.random() - 0.5) * e.size, {
+          vx: (Math.random() - 0.5) * 0.3, vy: -0.6 - Math.random() * 0.5,
+          life: 20, size: 2, color: GAS, friction: 0.97
+        });
+      }
+      if (e.poisonTickTimer >= 60) {
+        e.poisonTickTimer -= 60;
+        damageEnemy(e, e.poisonDmgPerTick || 2);
+      }
+      if (e.poisonTimer <= 0) e.poisonTimer = 0;
+    }
 
     if (e.fireTimer > 0) {
       e.fireTimer -= dt; e.fireTickTimer += dt; addFireParticle(e);
@@ -2347,6 +2467,65 @@ function loop(time) {
       }
       enemies.splice(i, 1);
       updateGameUI();
+    }
+  }
+
+  // GAS CONES - Aplicação de dano
+  for (let i = gasCones.length - 1; i >= 0; i--) {
+    const gc = gasCones[i];
+    gc.life -= dt;
+    gc.tickTimer += dt;
+    // Dano progressivo: a cada 1 segundo causa (damage) de dano adicional
+    // damage base é o dano do 1º segundo, depois +15 por segundo... vamos simplificar
+    // damage do getTowerStats cresce por estrela, mas aqui vamos acumular
+    if (gc.tickTimer >= 60) {
+      gc.tickTimer -= 60;
+      // Aplica dano progressivo em todos os inimigos no cone
+      const currentDamage = gc.damage; // dano acumulado base
+      for (const e of enemies) {
+        const dx = e.x - gc.x, dy = e.y - gc.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist > gc.range) continue;
+        const angle = Math.atan2(dy, dx);
+        let diff = angle - gc.angle;
+        while (diff > Math.PI) diff -= Math.PI * 2;
+        while (diff < -Math.PI) diff += Math.PI * 2;
+        if (Math.abs(diff) < Math.PI / 4) {
+          // Dano crescente: cada segundo o dano aumenta em 15
+          const secondsActive = Math.floor((gc.maxLife - gc.life) / 60);
+          const totalDmg = 15 * (secondsActive + 1); // começa em 15, +15 por segundo
+          damageEnemy(e, totalDmg);
+          // Aplica/renova o envenenamento
+          applyPoison(e, gc.poisonDmg, gc.poisonDur);
+        }
+      }
+    }
+    if (gc.life <= 0) gasCones.splice(i, 1);
+  }
+
+  // QUIMICO ZONES (área ao morrer)
+  for (let i = quimicoZones.length - 1; i >= 0; i--) {
+    const qz = quimicoZones[i];
+    qz.life -= dt;
+    qz.tickTimer += dt;
+    if (qz.life <= 0) { quimicoZones.splice(i, 1); continue; }
+    if (qz.tickTimer >= 60) {
+      qz.tickTimer -= 60;
+      // Dano em inimigos
+      for (const e of enemies) {
+        if (Math.hypot(e.x - qz.x, (e.y - (e.airHeight || 0)) - qz.y) <= qz.radius) {
+          damageEnemy(e, 15);
+          if (!e.isBoss) {
+            e.slowFromGas = true;
+          }
+        }
+      }
+      // Cura tropas
+      for (const t of towers) {
+        if (Math.hypot(t.x - qz.x, t.y - qz.y) <= qz.radius) {
+          t.hp = Math.min(t.maxHp, t.hp + 15);
+        }
+      }
     }
   }
 
@@ -2426,6 +2605,7 @@ function loop(time) {
             const idx = towers.indexOf(t);
             if (idx >= 0) towers.splice(idx, 1);
             if (t.isCruzado) cruzadoDeath(t.x, t.y);
+            if (t.isQuimico) quimicoDeathZone(t.x, t.y);
           }
         }
       }
@@ -2474,6 +2654,7 @@ function loop(time) {
           const idx = towers.indexOf(t);
           if (idx >= 0) towers.splice(idx, 1);
           if (t.isCruzado) cruzadoDeath(t.x, t.y);
+          if (t.isQuimico) quimicoDeathZone(t.x, t.y);
         }
       }
     }
@@ -2507,6 +2688,7 @@ function loop(time) {
             const idx = towers.indexOf(t);
             if (idx >= 0) towers.splice(idx, 1);
             if (t.isCruzado) cruzadoDeath(t.x, t.y);
+            if (t.isQuimico) quimicoDeathZone(t.x, t.y);
           }
         }
       }
@@ -2664,7 +2846,24 @@ function loop(time) {
         let actualDamage = t.damage;
         if (t.isDrone && target.isAir) actualDamage = t.damage * 3;
 
-        if (t.isLord) {
+        if (t.isQuimico) {
+          // QUÍMICO: libera cone de gás
+          addGasCone(t.x, t.y, t.angle, t.range, 15, t.gasDuration, t.poisonDmg, t.poisonDur);
+          // Efeito visual na boca do cano
+          for (let k = 0; k < 15; k++) {
+            const spread = (Math.random() - 0.5) * Math.PI / 2;
+            const a = t.angle + spread;
+            addParticle(mx, my, {
+              vx: Math.cos(a) * (2 + Math.random() * 3),
+              vy: Math.sin(a) * (2 + Math.random() * 3),
+              life: 40, size: 3, color: GAS, friction: 0.94
+            });
+          }
+          addShockwave(mx, my, GAS, 20, 15);
+          Sound.shootQuimico();
+          t.recoil = 3;
+        }
+        else if (t.isLord) {
           addShockwave(target.x, targetY, LORD_PURPLE, 40, 25);
           burst(target.x, targetY, 40, { speed: 6, life: 35, size: 4, color: LORD_PURPLE });
           const inRange = enemies.filter(e => Math.hypot(e.x - target.x, (e.y - (e.airHeight || 0)) - targetY) <= t.splash);
@@ -2835,6 +3034,7 @@ function loop(time) {
           const idx = towers.indexOf(b.target);
           if (idx >= 0) towers.splice(idx, 1);
           if (b.target.isCruzado) cruzadoDeath(b.target.x, b.target.y);
+          if (b.target.isQuimico) quimicoDeathZone(b.target.x, b.target.y);
         }
       } else {
         damageEnemy(b.target, b.damage, b.x, b.y);
@@ -2888,7 +3088,6 @@ function loop(time) {
   draw();
 }
 
-// DRAW compactado
 function draw() {
   if (!path) return;
   ctx.save();
@@ -2905,6 +3104,45 @@ function draw() {
   ctx.strokeStyle = 'rgba(51,255,51,0.15)';
   for (let x = 0; x <= canvas.width; x += PPM * 5) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke(); }
   for (let y = 0; y <= canvas.height; y += PPM * 5) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke(); }
+
+  // QUIMICO ZONES (área tóxica ao morrer) - desenha embaixo
+  for (const qz of quimicoZones) {
+    const p = qz.life / qz.maxLife;
+    ctx.globalAlpha = 0.2 * p + Math.sin(Date.now() / 300) * 0.05;
+    ctx.fillStyle = QUIMICO_COL;
+    ctx.beginPath(); ctx.arc(qz.x, qz.y, qz.radius, 0, Math.PI * 2); ctx.fill();
+    ctx.globalAlpha = 0.7 * p;
+    ctx.strokeStyle = QUIMICO_COL; ctx.lineWidth = 3;
+    ctx.setLineDash([8, 6]);
+    ctx.beginPath(); ctx.arc(qz.x, qz.y, qz.radius, 0, Math.PI * 2); ctx.stroke();
+    ctx.setLineDash([]);
+  }
+  ctx.globalAlpha = 1;
+
+  // GAS CONES (visual)
+  for (const gc of gasCones) {
+    const p = gc.life / gc.maxLife;
+    ctx.save();
+    ctx.translate(gc.x, gc.y); ctx.rotate(gc.angle);
+    ctx.globalAlpha = p * 0.5;
+    const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, gc.range);
+    grad.addColorStop(0, 'rgba(170,255,85,0.9)');
+    grad.addColorStop(0.5, 'rgba(136,221,68,0.6)');
+    grad.addColorStop(1, 'rgba(136,221,68,0)');
+    ctx.fillStyle = grad;
+    const spread = Math.PI / 4;
+    ctx.beginPath(); ctx.moveTo(0, 0);
+    ctx.arc(0, 0, gc.range, -spread, spread);
+    ctx.closePath(); ctx.fill();
+    ctx.globalAlpha = p * 0.9;
+    ctx.strokeStyle = QUIMICO_COL; ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.arc(0, 0, gc.range, -spread, spread);
+    ctx.closePath(); ctx.stroke();
+    ctx.restore();
+    ctx.globalAlpha = 1;
+  }
 
   for (const cs of cruzadoSacreds) {
     const p = cs.life / cs.maxLife;
@@ -3076,6 +3314,15 @@ function draw() {
         ctx.fillStyle = LORD_PURPLE;
         ctx.beginPath(); ctx.arc(t.x, t.y, t.range, 0, Math.PI * 2); ctx.fill();
         ctx.globalAlpha = 1;
+      } else if (t.isQuimico) {
+        ctx.globalAlpha = 0.08;
+        ctx.fillStyle = QUIMICO_COL;
+        ctx.beginPath(); ctx.arc(t.x, t.y, t.range, 0, Math.PI * 2); ctx.fill();
+        ctx.globalAlpha = 0.2;
+        ctx.strokeStyle = QUIMICO_COL; ctx.lineWidth = 1; ctx.setLineDash([3, 5]);
+        ctx.beginPath(); ctx.arc(t.x, t.y, t.range, 0, Math.PI * 2); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.globalAlpha = 1;
       } else if (t.isCruzado) {
         ctx.globalAlpha = 0.1;
         ctx.fillStyle = CRUZADO_COL;
@@ -3094,6 +3341,7 @@ function draw() {
     let col = GREEN;
     if (isPetrified) col = STONE;
     else if (isFrozenByYeti) col = ICE;
+    else if (t.isQuimico) col = QUIMICO_COL;
     else if (t.isCruzado) col = CRUZADO_COL;
     else if (t.isHealer) col = GREEN_BRIGHT;
     else if (t.isMerchant) col = GOLD;
@@ -3123,6 +3371,13 @@ function draw() {
       ctx.strokeRect(t.x - 14, t.y - 14, 28, 28);
       ctx.globalAlpha = 1;
     }
+    if (t.isQuimico) {
+      ctx.strokeStyle = GAS;
+      ctx.globalAlpha = 0.9;
+      ctx.lineWidth = 3;
+      ctx.strokeRect(t.x - 14, t.y - 14, 28, 28);
+      ctx.globalAlpha = 1;
+    }
 
     ctx.save();
     ctx.translate(t.x, t.y); ctx.scale(scale, scale);
@@ -3133,7 +3388,13 @@ function draw() {
     ctx.fillStyle = col;
     ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
 
-    if (t.isCruzado) {
+    if (t.isQuimico) {
+      // Ícone de frasco/máscara de gás
+      ctx.shadowColor = QUIMICO_COL; ctx.shadowBlur = 12;
+      ctx.font = 'bold 20px VT323, monospace';
+      ctx.fillText('☣️', t.x, t.y - 2);
+      ctx.shadowBlur = 0;
+    } else if (t.isCruzado) {
       ctx.shadowColor = CRUZADO_COL; ctx.shadowBlur = 20;
       ctx.font = 'bold 22px VT323, monospace';
       ctx.fillText('✝️', t.x, t.y - 2);
@@ -3491,6 +3752,7 @@ function drawEnemy(e) {
   const isHit = e.hitFlash > 0;
   const isBoss = e.isBoss;
   const isBurning = e.fireTimer > 0;
+  const isPoisoned = e.poisonTimer > 0;
   const isIceFrozen = e.iceFrozen > 0;
   const isAir = e.isAir;
   const isPetrified = e.petrified > 0;
@@ -3501,6 +3763,7 @@ function drawEnemy(e) {
   else if (isHit) color = '#ffffff';
   else if (isRevived) color = KNIGHT_COL;
   else if (isIceFrozen) color = FROZEN;
+  else if (isPoisoned) color = GAS;
   else if (isBurning) color = FIRE_BRIGHT;
   else if (isBoss) color = getBossColor(e.type);
   else if (isAir) color = AIR;
@@ -3824,6 +4087,7 @@ function bossFinalExplosion(x, y, color, doDamage) {
         if (idx >= 0) towers.splice(idx, 1);
         if (t.isHealer) healPlayer(5);
         if (t.isCruzado) cruzadoDeath(t.x, t.y);
+        if (t.isQuimico) quimicoDeathZone(t.x, t.y);
       }
     }
     updateGameUI();
@@ -3843,6 +4107,7 @@ function omegaMissileExplode(x, y, damage, radius) {
       const idx = towers.indexOf(t);
       if (idx >= 0) towers.splice(idx, 1);
       if (t.isCruzado) cruzadoDeath(t.x, t.y);
+      if (t.isQuimico) quimicoDeathZone(t.x, t.y);
     }
   }
   updateGameUI();
@@ -3852,8 +4117,15 @@ function omegaMissileExplode(x, y, damage, radius) {
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   if (id) document.getElementById(id).classList.add('active');
-  // Mostrar botão λ apenas na tela de deck
-  document.getElementById('admBtn').style.display = (id === 'deckScreen') ? 'block' : 'none';
+  // FIX: força o botão λ a aparecer na tela de deck
+  const admBtn = document.getElementById('admBtn');
+  if (id === 'deckScreen') {
+    admBtn.style.display = 'block';
+    admBtn.style.visibility = 'visible';
+    admBtn.style.opacity = '1';
+  } else {
+    admBtn.style.display = 'none';
+  }
 }
 function updateMenuCrystals() {
   document.getElementById('menuCrystals').textContent = crystals;
@@ -3896,10 +4168,12 @@ function buildDeckGrid() {
     const card = document.createElement('button');
     card.className = 'deck-card';
     if (type === 'cruzado') card.classList.add('cruzado');
+    if (type === 'quimico') card.classList.add('quimico');
     card.dataset.type = type;
     let starTxt = '';
     if (type === 'lord') starTxt = '👑 ';
     else if (type === 'cruzado') starTxt = '✝️ ';
+    else if (type === 'quimico') starTxt = '☣️ ';
     else starTxt = '⭐'.repeat(lvl) + ' ';
     card.innerHTML = `
       <div class="card-name">${starTxt}${def.name}</div>
@@ -4069,6 +4343,7 @@ function startGame() {
   omegaMissiles.length = 0; omegaBeams.length = 0; debris.length = 0;
   azazelBeams.length = 0; azazelThunders.length = 0; azazelShockwaves.length = 0;
   cruzadoTornados.length = 0; cruzadoSacreds.length = 0; cruzadoBeams.length = 0;
+  gasCones.length = 0; quimicoZones.length = 0;
   waveQueue = []; waveActive = false;
   waveComplete = false; waveTransitionTimer = 0;
   curseActive = false; curseWavesLeft = 0;
@@ -4093,9 +4368,10 @@ function buildTroopsShop() {
     btn.className = 'tower-btn';
     if (type === 'lord') btn.classList.add('lord');
     if (type === 'cruzado') btn.classList.add('cruzado');
+    if (type === 'quimico') btn.classList.add('quimico');
     btn.dataset.type = type;
     btn.innerHTML = `
-      <span class="star-badge">${type === 'lord' ? '👑' : (type === 'cruzado' ? '✝️' : (lvl > 0 ? '⭐'.repeat(lvl) : ''))}</span>
+      <span class="star-badge">${type === 'lord' ? '👑' : (type === 'cruzado' ? '✝️' : (type === 'quimico' ? '☣️' : (lvl > 0 ? '⭐'.repeat(lvl) : '')))}</span>
       ${def.name} · <span class="cost-line" data-cost="${type}">${def.cost}</span>
       <div class="stat-line">${def.desc}</div>
     `;
@@ -4110,19 +4386,14 @@ function buildTroopsShop() {
 }
 
 // ============ PAINEL ADM ============
-function openAdminPanel() {
-  document.getElementById('adminPanel').classList.add('active');
-}
-function closeAdminPanel() {
-  document.getElementById('adminPanel').classList.remove('active');
-}
+function openAdminPanel() { document.getElementById('adminPanel').classList.add('active'); }
+function closeAdminPanel() { document.getElementById('adminPanel').classList.remove('active'); }
 function toggleAdminPanel() {
   const p = document.getElementById('adminPanel');
   if (p.classList.contains('active')) closeAdminPanel();
   else openAdminPanel();
 }
 
-// Botão λ
 document.getElementById('admBtn').addEventListener('click', () => {
   Sound.select();
   if (admLoggedIn) {
@@ -4155,12 +4426,8 @@ function trySecret() {
   }
 }
 
-// Botão SAIR do painel
-document.getElementById('adminClose').addEventListener('click', () => {
-  closeAdminPanel();
-});
+document.getElementById('adminClose').addEventListener('click', () => closeAdminPanel());
 
-// AdmBtn1: +1 Milhão
 document.getElementById('admBtn1').addEventListener('click', () => {
   crystals += 1000000;
   saveCrystals(crystals);
@@ -4169,7 +4436,6 @@ document.getElementById('admBtn1').addEventListener('click', () => {
   showMsg('> +1.000.000 CRISTAIS');
 });
 
-// AdmBtn2: Maxar tropas
 document.getElementById('admBtn2').addEventListener('click', () => {
   for (const t of TOWER_ORDER) stars[t] = 3;
   saveStars(stars);
@@ -4177,7 +4443,6 @@ document.getElementById('admBtn2').addEventListener('click', () => {
   showMsg('> TODAS AS TROPAS MAXADAS (3★)');
 });
 
-// AdmBtn3: Tropas lendárias
 document.getElementById('admBtn3').addEventListener('click', () => {
   lordUnlocked = true;
   cruzadoUnlocked = true;
@@ -4187,7 +4452,6 @@ document.getElementById('admBtn3').addEventListener('click', () => {
   showMsg('> 👑 LORD + ✝️ CRUZADO DESBLOQUEADOS');
 });
 
-// Toggle Pular Wave
 document.getElementById('admToggleSkip').addEventListener('click', () => {
   admSkipEnabled = !admSkipEnabled;
   saveToggleSkip(admSkipEnabled);
@@ -4195,7 +4459,6 @@ document.getElementById('admToggleSkip').addEventListener('click', () => {
   showMsg(admSkipEnabled ? '> ⏩ PULAR WAVE ATIVO [M]' : '> ⏩ PULAR WAVE INATIVO');
 });
 
-// Toggle Modo Rápido
 document.getElementById('admToggleFast').addEventListener('click', () => {
   admFastEnabled = !admFastEnabled;
   saveToggleFast(admFastEnabled);
@@ -4212,13 +4475,11 @@ function updateAdminToggles() {
   fast.querySelector('.status').textContent = admFastEnabled ? 'ATIVO' : 'INATIVO';
 }
 
-// Editor
 document.getElementById('admOpenEditor').addEventListener('click', () => {
   closeAdminPanel();
   openEditor();
 });
 
-// Reset
 document.getElementById('admResetAll').addEventListener('click', () => {
   if (confirm('RESETAR TUDO? Isso apaga cristais, estrelas, tropas e mapas.')) {
     crystals = 0; saveCrystals(0);
@@ -4356,13 +4617,9 @@ document.getElementById('btnLoadCustomMap').addEventListener('click', () => {
 document.getElementById('btnMapSelectStart').addEventListener('click', () => { if (selectedMap) startGame(); });
 document.getElementById('btnMapSelectBack').addEventListener('click', () => { showDeck(); });
 
-// VICTORY
 document.getElementById('btnVictoryMenu').addEventListener('click', () => { showMenu(); });
-document.getElementById('btnVictoryDeck').addEventListener('click', () => {
-  showDeck();
-});
+document.getElementById('btnVictoryDeck').addEventListener('click', () => { showDeck(); });
 
-// SOUND
 const soundBtn = document.getElementById('soundBtn');
 soundBtn.addEventListener('click', () => {
   Sound.init();
@@ -4373,7 +4630,6 @@ soundBtn.addEventListener('click', () => {
 });
 document.addEventListener('pointerdown', () => { Sound.init(); Sound.resume(); }, { once: true });
 
-// MENU
 document.querySelectorAll('.mode-btn[data-mode]').forEach(btn => {
   btn.addEventListener('click', () => { gameMode = btn.dataset.mode; showDeck(); });
 });
