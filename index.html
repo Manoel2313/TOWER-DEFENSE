@@ -867,10 +867,10 @@ const STAR_PROGRESSION = {
     { hp: 450, damage: 220, range: 4 * PPM, fireRate: 24 }
   ],
   sniper: [
-    { hp: 70, damage: 50, range: 15 * PPM, fireRate: 120 },
-    { hp: 110, damage: 85, range: 17 * PPM, fireRate: 108 },
-    { hp: 160, damage: 130, range: 19 * PPM, fireRate: 96 },
-    { hp: 250, damage: 200, range: 22 * PPM, fireRate: 84 }
+    { hp: 70, damage: 60, range: 15 * PPM, fireRate: 120 },
+    { hp: 110, damage: 95, range: 17 * PPM, fireRate: 108 },
+    { hp: 160, damage: 140, range: 19 * PPM, fireRate: 96 },
+    { hp: 250, damage: 210, range: 22 * PPM, fireRate: 84 }
   ],
   metralhadora: [
     { hp: 100, damage: 25, range: 7 * PPM, fireRate: 12 },
@@ -891,10 +891,10 @@ const STAR_PROGRESSION = {
     { hp: 350, damage: 40, range: 7.5 * PPM, fireRate: 390, isQuimico: true, gasDuration: 420, poisonDmg: 6, poisonDur: 900 }
   ],
   bazuca: [
-    { hp: 100, damage: 150, range: 10 * PPM, fireRate: 300, splash: 3 * PPM },
-    { hp: 150, damage: 220, range: 11 * PPM, fireRate: 270, splash: 3.5 * PPM },
-    { hp: 220, damage: 320, range: 12 * PPM, fireRate: 240, splash: 4 * PPM },
-    { hp: 350, damage: 480, range: 13 * PPM, fireRate: 180, splash: 5 * PPM }
+    { hp: 100, damage: 165, range: 10 * PPM, fireRate: 300, splash: 3 * PPM },
+    { hp: 150, damage: 235, range: 11 * PPM, fireRate: 270, splash: 3.5 * PPM },
+    { hp: 220, damage: 335, range: 12 * PPM, fireRate: 240, splash: 4 * PPM },
+    { hp: 350, damage: 495, range: 13 * PPM, fireRate: 180, splash: 5 * PPM }
   ],
   tesla: [
     { hp: 80, damage: 30, range: 6 * PPM, fireRate: 120, chainRange: 3 * PPM, maxChains: 3 },
@@ -903,10 +903,10 @@ const STAR_PROGRESSION = {
     { hp: 300, damage: 95, range: 9 * PPM, fireRate: 84, chainRange: 4.5 * PPM, maxChains: 7 }
   ],
   medico: [
-    { hp: 100, heal: 20, range: 5 * PPM, fireRate: 300 },
-    { hp: 150, heal: 35, range: 6 * PPM, fireRate: 270 },
-    { hp: 220, heal: 55, range: 7 * PPM, fireRate: 240 },
-    { hp: 350, heal: 85, range: 9 * PPM, fireRate: 180 }
+    { hp: 120, heal: 20, range: 5 * PPM, fireRate: 300 },
+    { hp: 170, heal: 35, range: 6 * PPM, fireRate: 270 },
+    { hp: 240, heal: 55, range: 7 * PPM, fireRate: 240 },
+    { hp: 370, heal: 85, range: 9 * PPM, fireRate: 180 }
   ],
   defensor: [
     { hp: 200, range: 5 * PPM, reduction: 0.5 },
@@ -939,14 +939,14 @@ const TOWER_TYPES = {
   boxeador:     { cost: 50,  name: 'BOXEADOR',      desc: 'HP/120 · DMG/35 · 0.8s · 3m', isBoxer: true, hitsAir: false },
   drone:        { cost: 100, name: 'DRONE',         desc: 'HP/100 · DMG/25 · 1s · 8m · ANTI-AÉREO', isDrone: true, hitsAir: true },
   faca:         { cost: 100, name: 'FACA',          desc: 'HP/150 · DMG/80 · 0.5s · 2.5m', hitsAir: false },
-  sniper:       { cost: 150, name: 'SNIPER',        desc: 'HP/70 · DMG/50 · 2s · 15m', hitsAir: true },
+  sniper:       { cost: 150, name: 'SNIPER',        desc: 'HP/70 · DMG/60 · 2s · 15m', hitsAir: true },
   metralhadora: { cost: 150, name: 'METRALHADORA',  desc: 'HP/100 · DMG/25 · 0.2s · 7m', hitsAir: false },
   lancachamas:  { cost: 180, name: 'LANÇA-CHAMAS',  desc: 'HP/100 · DMG/15 · 0.1s · 4m · FOGO', isFlamethrower: true, hitsAir: false },
   glacial:      { cost: 200, name: 'GLACIAL',       desc: 'HP/100 · DMG/15 · 0.6s · 5m · CONGELA', isGlacial: true, hitsAir: false },
-  bazuca:       { cost: 200, name: 'BAZUCA',        desc: 'HP/100 · DMG/150 · 5s · 10m · ÁREA', splash: 3 * PPM, hitsAir: true },
+  bazuca:       { cost: 200, name: 'BAZUCA',        desc: 'HP/100 · DMG/165 · 5s · 10m · ÁREA', splash: 3 * PPM, hitsAir: true },
   quimico:      { cost: 230, name: 'QUÍMICO',       desc: 'HP/100 · GÁS 5s · VENENO 15s', isQuimico: true, hitsAir: false },
   tesla:        { cost: 230, name: 'TESLA',         desc: 'HP/80 · DMG/30 · 2s · 6m · RICOCHETE', isTesla: true, hitsAir: false },
-  medico:       { cost: 250, name: 'MÉDICO',        desc: 'HP/100 · CURA/20 · 5s · 5m', heal: 20, isHealer: true, hitsAir: false },
+  medico:       { cost: 250, name: 'MÉDICO',        desc: 'HP/120 · CURA/20 · 5s · 5m', heal: 20, isHealer: true, hitsAir: false },
   defensor:     { cost: 270, name: 'DEFENSOR',      desc: 'HP/200 · AURA -50% DANO · 5m', isDefensor: true, hitsAir: false },
   comerciante:  { baseCost: 400, cost: 400, name: 'COMERCIANTE', desc: 'HP/100 · +50 OURO · 5s', income: 50, isMerchant: true, hitsAir: false },
   paradoxo:     { cost: 400, name: 'PARADOXO',      desc: 'HP/100 · PARA TEMPO · 15s · 5m', isParadox: true, hitsAir: false },
@@ -1014,6 +1014,8 @@ let curseWavesLeft = 0;
 let curseActive = false;
 let crystalsEarnedThisRun = 0;
 let fastModeActive = false;
+let bossSpawnPending = false;
+let azazelDefeated = false;
 
 // Atalho secreto Z Z Z
 let zPressTimestamps = [];
@@ -1597,6 +1599,7 @@ let waveActive = false;
 function startWave() {
   waveNum++;
   bossActive = false; bossRef = null;
+  bossSpawnPending = false;
   waveComplete = false;
   waveTransitionTimer = 0;
 
@@ -1633,9 +1636,16 @@ function startWave() {
     addShake(isAzazel ? 20 : 15);
     const hp = bossDef.hp;
     const dmg = bossDef.damage;
+    const bossWaveId = waveNum;
+    bossSpawnPending = true;
     setTimeout(() => {
+      if (waveNum !== bossWaveId || gameOver || victory || !gameMode) return;
       clearFieldForBoss();
-      setTimeout(() => spawnEnemy(bossType, undefined, undefined, undefined, hp, dmg), 300);
+      setTimeout(() => {
+        if (waveNum !== bossWaveId || gameOver || victory || !gameMode) return;
+        spawnEnemy(bossType, undefined, undefined, undefined, hp, dmg);
+        bossSpawnPending = false;
+      }, 300);
     }, isAzazel ? 2500 : 1500);
     spawnCooldown = 0;
     updateGameUI();
@@ -1653,6 +1663,10 @@ function startWave() {
 function skipCurrentWave() {
   if (!gameMode || gameOver || victory) {
     showMsg('> [M] SÓ DURANTE O JOGO');
+    return;
+  }
+  if (waveNum >= 100) {
+    showMsg('> [ADM] AZAZEL NÃO PODE SER PULADO');
     return;
   }
   const totalKilled = enemies.length + bats.length;
@@ -1683,14 +1697,6 @@ function skipCurrentWave() {
   addFlash(0.6, '255,215,0'); addShake(12);
   Sound.bigExplosion();
   showMsg('> [ADM] WAVE PULADA! (' + totalKilled + ' mortos)');
-  if (waveNum >= 100) {
-    setTimeout(() => {
-      victory = true;
-      saveCruzadoUnlocked(true);
-      cruzadoUnlocked = true;
-      showVictoryScreen();
-    }, 500);
-  }
 }
 
 function toggleFastMode() {
@@ -1802,6 +1808,26 @@ function damageEnemy(e, amount, fromX, fromY, isFire, ignoreArmor) {
     if (thExpected > thDone) { e.thunderCounter = thExpected; azazelThunder(e); }
     if (!e.beamStormFired && e.hp <= e.maxHp * 0.5) { e.beamStormFired = true; azazelBeamStorm(e); }
     if (!e.curseFired && e.hp <= 5000) { e.curseFired = true; azazelCurse(e); }
+  }
+}
+
+function knockbackAlongPath(e, distance) {
+  let remaining = distance;
+  if (e.wp < 1) e.wp = 1;
+  if (e.wp > path.length) e.wp = path.length;
+  while (remaining > 0) {
+    const prev = path[e.wp - 1];
+    const d = Math.hypot(e.x - prev.x, e.y - prev.y);
+    if (d > remaining) {
+      e.x -= ((e.x - prev.x) / d) * remaining;
+      e.y -= ((e.y - prev.y) / d) * remaining;
+      remaining = 0;
+    } else {
+      e.x = prev.x; e.y = prev.y;
+      remaining -= d;
+      if (e.wp - 1 <= 0) { e.wp = 1; break; }
+      e.wp--;
+    }
   }
 }
 
@@ -2108,7 +2134,7 @@ function loop(time) {
       spawnEnemy(waveQueue.shift());
       spawnCooldown = 45;
     }
-  } else if (waveActive && waveQueue.length === 0 && enemies.length === 0 && bats.length === 0) {
+  } else if (waveActive && waveQueue.length === 0 && !bossSpawnPending && enemies.length === 0 && bats.length === 0) {
     if (!waveComplete) {
       waveComplete = true;
       waveTransitionTimer = 90;
@@ -2119,7 +2145,7 @@ function loop(time) {
     waveTransitionTimer -= dt;
     if (waveTransitionTimer <= 0) {
       waveActive = false;
-      if (waveNum === 100) {
+      if (waveNum === 100 && azazelDefeated) {
         victory = true;
         saveCruzadoUnlocked(true);
         cruzadoUnlocked = true;
@@ -2451,6 +2477,7 @@ function loop(time) {
           blackKnightCurse();
         } else if (e.type === 'azazel') {
           azazelDeathExplosion(e.x, e.y);
+          azazelDefeated = true;
         } else {
           bossFinalExplosion(e.x, e.y, getBossColor(e.type), true);
         }
@@ -2838,7 +2865,7 @@ function loop(time) {
     }
 
     if (target) {
-      const targetY = target.y - (target.airHeight || 0);
+      let targetY = target.y - (target.airHeight || 0);
       t.angle = Math.atan2(targetY - t.y, target.x - t.x);
       if (t.cooldown <= 0) {
         const mx = t.x + Math.cos(t.angle) * 14;
@@ -2879,12 +2906,8 @@ function loop(time) {
           let dmg, rate;
           if (isBossMode) {
             dmg = t.bossDamage; rate = t.bossFireRate;
-            const dx = target.x - t.x, dy = targetY - t.y;
-            const dist = Math.hypot(dx, dy);
-            if (dist > 0) {
-              target.x += (dx/dist) * 2 * PPM;
-              target.y += (dy/dist) * 2 * PPM;
-            }
+            knockbackAlongPath(target, 2 * PPM);
+            targetY = target.y - (target.airHeight || 0);
             t.cruzadoHits = (t.cruzadoHits || 0) + 1;
             if (t.cruzadoHits >= 6) {
               t.cruzadoHits = 0;
@@ -4348,6 +4371,7 @@ function startGame() {
   waveComplete = false; waveTransitionTimer = 0;
   curseActive = false; curseWavesLeft = 0;
   bossActive = false; bossRef = null;
+  bossSpawnPending = false; azazelDefeated = false;
   dragging = null; selectedTowerType = null; pointerDownInfo = null;
   fastModeActive = false;
   document.getElementById('speedIndicator').classList.remove('active');
